@@ -9,10 +9,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
+ * This class is designed to take in a channel username when created
+ * and use that information to fetch relavent information from the 
+ * twitch api.
+ * This information can then be parsed and stored for further use
  * 
- * 
- * 
- *
  */
 
 public class ChannelStatus {

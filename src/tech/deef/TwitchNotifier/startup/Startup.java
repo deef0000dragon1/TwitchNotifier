@@ -9,11 +9,14 @@ import javax.swing.JPanel;
 
 import tech.deef.TwitchNotifier.live.ChannelStatus;
 
+
+/**
+ * main class to test and deploy.
+ * Curently set up using hard coded names.
+ */
 public class Startup extends JFrame {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {
