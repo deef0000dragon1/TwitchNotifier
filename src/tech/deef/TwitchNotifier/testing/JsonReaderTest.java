@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import javax.json.*;
 
 
 /**
@@ -19,7 +20,6 @@ public class JsonReaderTest {
 	 * Test the JSON Reader
 	 */
 	public static void TestJsonReader() {
-		
 		
 	}
 
