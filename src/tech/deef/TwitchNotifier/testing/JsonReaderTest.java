@@ -6,12 +6,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 
 /**
- * This class is designed to test a JSONReader class and determine if it will
- * be usable for the Twitch Reader This  is for specific scenario and
- * developer testing It will have little to no error handling.
+ * This class is designed to test a JSONReader class and determine if it will be
+ * usable for the Twitch Reader This is for specific scenario and developer
+ * testing It will have little to no error handling.
  */
 public class JsonReaderTest {
 
@@ -19,7 +21,23 @@ public class JsonReaderTest {
 	 * Test the JSON Reader
 	 */
 	public static void TestJsonReader() {
-		
+		JSONObject data = new JSONObject();
+
+		JSONParser parser = new JSONParser();
+		String s = getFollowerData();
+
+		try {
+			Object obj = parser.parse(s);
+			JSONArray array = (JSONArray)obj;
+			
+			
+			
+		} catch (ParseException pe) {
+
+			System.out.println("position: " + pe.getPosition());
+			System.out.println(pe);
+		}
+
 	}
 
 	public static String getFollowerData() {
