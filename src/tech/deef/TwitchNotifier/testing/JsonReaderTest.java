@@ -66,36 +66,44 @@ public class JsonReaderTest {
 				JSONObject json = (JSONObject) o;
 				// get the keys
 				ArrayList<String> keys = new ArrayList(json.keySet());
-				// loop through the parts of the json.
+				//print opening brace
 				printCheck(nTabs(tabs)+"{" + "\n");
+				// loop through the parts of the json.
 				for (String key : keys) {
-
+					//print the key
 					printCheck(nTabs(tabs + 1) + key + ":");
+					//recurse into the parser with another level out
 					JSONParser(tabs + 1, json.get(key));
 
 				}
+				//print the closing brace
 				printCheck(nTabs(tabs) + "}" + "\n");
 				break;
 
 			case "class org.json.simple.JSONArray":
+				//print the opening bracket
 				printCheck("[" + "\n");
+				//make object into array
 				JSONArray array = (JSONArray)o;
 				
+				
+				//loop through all parts of array
 				for(Object i: array){
-					
+					//recurse into array
 					JSONParser(tabs, i);
 					
 					
 					//output test
 					//printCheck(nTabs(tabs+1) + i.getClass().toString() + "\n");
 				}
-				
+				//print closing bracket
 				printCheck(nTabs(tabs) + "]" + "\n");
 				break;
 
 			case "class java.lang.String":
 
 				String string = (String) o;
+				//print string
 				printCheck("\"" + string + "\"" + "\n");
 
 				break;
@@ -103,18 +111,19 @@ public class JsonReaderTest {
 			case "class java.lang.Long":
 
 				long num = (long) 0;
+				//print the number
 				printCheck(num + "\n");
 				break;
 				
 			case "class java.lang.Boolean":
 				boolean bool = (boolean)o;
-				
+				//print the bool
 				printCheck(bool + "\n");
 				
 				break;
 
 			default:
-
+				//if the datatype is not avaliable, make obvoius it is not. 
 				printCheck("{" + o.getClass().toString() + "} Previous string UNKNOWN" + "\n");
 
 			}
@@ -153,6 +162,7 @@ public class JsonReaderTest {
 		return data;
 	}
 
+	//prints the spacing of a specific type once for each layer put in the function
 	public static String nTabs(int n) {
 		StringBuffer s = new StringBuffer();
 		for (int i = 0; i < n; i++) {
@@ -161,12 +171,10 @@ public class JsonReaderTest {
 		return s.toString();
 	}
 	
+	//print checking function. If PRINT is false, the input wil not print. 
 	public static void printCheck(String s){
 		if(PRINT){
-			
 			System.out.print(s);
 		}
-		
-		
 	}
 }
