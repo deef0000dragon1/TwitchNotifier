@@ -21,6 +21,7 @@ import org.json.simple.parser.*;
 public class JsonReaderTest {
 
 	private static final String SPACING = "    ";
+	private static final boolean PRINT = true;
 
 	/*
 	 * Test the JSON Reader
@@ -34,14 +35,14 @@ public class JsonReaderTest {
 		try {
 			JSONObject array = (JSONObject) parser.parse(s);
 
-			// System.out.println(array.toJSONString());
+			// printCheck(array.toJSONString() + "\n");
 
 			JSONParser(0, array);
 
 		} catch (ParseException pe) {
 
-			System.out.println("position: " + pe.getPosition());
-			System.out.println(pe);
+			printCheck("position: " + pe.getPosition() + "\n");
+			printCheck(pe + "\n");
 		}
 
 	}
@@ -66,18 +67,18 @@ public class JsonReaderTest {
 				// get the keys
 				ArrayList<String> keys = new ArrayList(json.keySet());
 				// loop through the parts of the json.
-				System.out.println(nTabs(tabs)+"{");
+				printCheck(nTabs(tabs)+"{" + "\n");
 				for (String key : keys) {
 
-					System.out.print(nTabs(tabs + 1) + key + ":");
+					printCheck(nTabs(tabs + 1) + key + ":");
 					JSONParser(tabs + 1, json.get(key));
 
 				}
-				System.out.println(nTabs(tabs+1) + "}");
+				printCheck(nTabs(tabs) + "}" + "\n");
 				break;
 
 			case "class org.json.simple.JSONArray":
-				System.out.println("[");
+				printCheck("[" + "\n");
 				JSONArray array = (JSONArray)o;
 				
 				for(Object i: array){
@@ -86,55 +87,42 @@ public class JsonReaderTest {
 					
 					
 					//output test
-					//System.out.println(nTabs(tabs+1) + i.getClass().toString());
+					//printCheck(nTabs(tabs+1) + i.getClass().toString() + "\n");
 				}
 				
-				System.out.println(nTabs(tabs) + "]");
+				printCheck(nTabs(tabs) + "]" + "\n");
 				break;
 
 			case "class java.lang.String":
 
 				String string = (String) o;
-				System.out.println("\"" + string + "\"");
+				printCheck("\"" + string + "\"" + "\n");
 
 				break;
 
 			case "class java.lang.Long":
 
 				long num = (long) 0;
-				System.out.println(num);
+				printCheck(num + "\n");
 				break;
 				
 			case "class java.lang.Boolean":
 				boolean bool = (boolean)o;
 				
-				System.out.println(bool);
+				printCheck(bool + "\n");
 				
 				break;
 
 			default:
 
-				System.out.println("{" + o.getClass().toString() + "} Previous string UNKNOWN");
+				printCheck("{" + o.getClass().toString() + "} Previous string UNKNOWN" + "\n");
 
 			}
 		} catch (NullPointerException e) {
-			System.out.println("null");
+			printCheck("null" + "\n");
 		}
 
-		/*
-		 * ArrayList<String> list = new ArrayList(o.keySet());
-		 * 
-		 * System.out.println(o.getClass());
-		 * 
-		 * 
-		 * for(String str : list){ System.out.println(o.get(str).getClass());
-		 * 
-		 * JSONObject temp = (JSONObject) o.get(str); ArrayList list2 = new
-		 * ArrayList(temp.entrySet()); for(Object obj2: list2){
-		 * System.out.println(nTabs(1)+obj2.getClass()); }
-		 * 
-		 * }
-		 */
+		
 	}
 
 	public static String getFollowerData() {
@@ -171,5 +159,14 @@ public class JsonReaderTest {
 			s.append(SPACING);
 		}
 		return s.toString();
+	}
+	
+	public static void printCheck(String s){
+		if(PRINT){
+			
+			System.out.print(s);
+		}
+		
+		
 	}
 }
