@@ -104,6 +104,13 @@ public class JsonReaderTest {
 				long num = (long) 0;
 				System.out.println(num);
 				break;
+				
+			case "class java.lang.Boolean":
+				boolean bool = (boolean)o;
+				
+				System.out.println(bool);
+				
+				break;
 
 			default:
 
