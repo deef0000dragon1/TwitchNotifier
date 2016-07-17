@@ -66,27 +66,35 @@ public class JsonReaderTest {
 			//get the keys
 			ArrayList<String> keys = new ArrayList(json.keySet());
 			//loop through the parts of the json. 
+			System.out.println("{");
 			for(String key: keys){
-				System.out.println("\n"+nTabs(tabs) + "{");
+				
 				System.out.print(nTabs(tabs+1) + key + ":");
 				JSONParser(tabs+1, json.get(key));
-				System.out.println(nTabs(tabs) + "}");
+				
 			}
+			System.out.println(nTabs(tabs) + "}");
 			break;
 			
 			
 		/*case "class org.json.simple.JSONArray":
 			
 			break;
-				
+			*/
+			
 		case "class java.lang.String":
 			
-			break;
-		
-		case "class java.lang.Long":
+			String string = (String)o;
+			System.out.println("\""+string+"\"");
 			
 			break;
-			*/
+			
+		case "class java.lang.Long":
+		
+			long num = (long)0;
+			System.out.println(num);
+			break;
+			
 		default:
 			
 			System.out.println("{" + o.getClass().toString() + "} Previous string UNKNOWN");
