@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
@@ -19,6 +20,7 @@ import org.json.simple.parser.*;
  */
 public class JsonReaderTest {
 
+	private static final String SPACING = "  ";
 	/*
 	 * Test the JSON Reader
 	 */
@@ -31,14 +33,9 @@ public class JsonReaderTest {
 		try {
 			JSONObject array = (JSONObject)parser.parse(s);
 			
-			System.out.println(array.toJSONString());
+			//System.out.println(array.toJSONString());
 			
-			
-			ArrayList list = new ArrayList(array.entrySet());
-			
-			for(Object obj : list){
-				System.out.println(obj.getClass());
-			}
+			JSONParser(0,array);
 			
 			
 		} catch (ParseException pe) {
@@ -48,6 +45,81 @@ public class JsonReaderTest {
 		}
 
 	}
+	
+	
+	/*
+	 * This function takes a Json object and prints it in a recursive format. 
+	 * 
+	 * Find object type, and switch based uponn the type
+	 * 		for JSON Objects, Print the title, followed by "{" followed by a recursive parse
+	 * 
+	 * 
+	 * */
+	public static void JSONParser(int tabs, Object o){
+		
+		switch(o.getClass().toString()){
+		case "class org.json.simple.JSONObject":
+			//handle JsonObject
+			
+			//make it a json
+			JSONObject json = (JSONObject)o; 
+			//get the keys
+			ArrayList<String> keys = new ArrayList(json.keySet());
+			//loop through the parts of the json. 
+			for(String key: keys){
+				System.out.println("\n"+nTabs(tabs) + "{");
+				System.out.print(nTabs(tabs+1) + key + ":");
+				JSONParser(tabs+1, json.get(key));
+				System.out.println(nTabs(tabs) + "}");
+			}
+			break;
+			
+			
+		/*case "class org.json.simple.JSONArray":
+			
+			break;
+				
+		case "class java.lang.String":
+			
+			break;
+		
+		case "class java.lang.Long":
+			
+			break;
+			*/
+		default:
+			
+			System.out.println("{" + o.getClass().toString() + "} Previous string UNKNOWN");
+			
+		}
+		
+		
+		
+		
+		
+		
+		/*ArrayList<String> list = new ArrayList(o.keySet());
+		
+		System.out.println(o.getClass());
+
+
+		for(String str : list){
+			System.out.println(o.get(str).getClass());
+			
+			JSONObject temp = (JSONObject) o.get(str);
+			ArrayList list2 = new ArrayList(temp.entrySet());
+			for(Object obj2: list2){
+				System.out.println(nTabs(1)+obj2.getClass());
+			}
+			
+		}*/
+	}
+	
+	
+	
+	
+	
+	
 
 	public static String getFollowerData() {
 
@@ -77,4 +149,11 @@ public class JsonReaderTest {
 		return data;
 	}
 
+	public static String nTabs(int n){
+		StringBuffer s = new StringBuffer();
+		for(int i = 0; i < n; i++){
+			s.append(SPACING);
+		}
+		return s.toString();
+	}
 }
