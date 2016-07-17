@@ -9,7 +9,6 @@ import java.net.URL;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
-
 /**
  * This class is designed to test a JSONReader class and determine if it will be
  * usable for the Twitch Reader This is for specific scenario and developer
@@ -28,10 +27,13 @@ public class JsonReaderTest {
 
 		try {
 			Object obj = parser.parse(s);
-			JSONArray array = (JSONArray)obj;
+			JSONObject array = (JSONObject) obj;
 			
+			System.out.println(array.toJSONString());
 			
+
 			
+
 		} catch (ParseException pe) {
 
 			System.out.println("position: " + pe.getPosition());
